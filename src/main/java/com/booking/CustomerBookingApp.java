@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class CustomerBookingApp {
 
     public static void main(String[] args) {
-        String apiUrl = "http://localhost:8088/bookings"; // Assuming the API is running locally
+        String apiUrl = "http://localhost:8088/bookings";
 
         // Sample booking data
         String customerName = "Customer 1";

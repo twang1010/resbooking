@@ -4,6 +4,7 @@ import io.muserver.MuServer;
 import io.muserver.MuServerBuilder;
 import io.muserver.rest.RestHandlerBuilder;
 import org.json.*;
+import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 
 import javax.ws.rs.*;
 import java.time.LocalDate;
@@ -18,7 +19,8 @@ public class RestaurantBookingApi {
     public static void main(String[] args) {
         RestaurantBookingResource restaurantBookingResource = new RestaurantBookingResource();
         MuServer server = MuServerBuilder.httpServer().withHttpPort(8088)
-                .addHandler(RestHandlerBuilder.restHandler(restaurantBookingResource))
+                .addHandler(RestHandlerBuilder.restHandler(restaurantBookingResource)
+                        .addCustomReader(new JacksonJaxbJsonProvider()))
                 .start();
 
         System.out.println("booking API: " + server.uri().resolve("/bookings"));
@@ -45,7 +47,6 @@ public class RestaurantBookingApi {
                 }
             }
             return new JSONObject(retbooking).toString();
-            //if not found will return an empty JSON string
         }
 
         @POST
